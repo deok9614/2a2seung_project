@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/write.css' %}">
+    <title>Write</title>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">MYLOG</div>
+        <div>
+            <button class="category">일상</button>
+            <button class="category">요리</button>
+            <button class="category">여행</button>
+            <button class="category">영화</button>
+            <button class="category">IT</button>
+            <button class="">Logout</button>
+            <button class="">Just Write!</button>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <!-- 글 작성 부분 -->
+        <section>
+            <form action="" method="post">
+                <textarea name="textarea" id="default" cols="30" rows="10"></textarea><br>
+                {% comment %} <input type="file" name="image" accept="image/*">이미지 업로드</input>
+                <button type="submit" name="draft" value="1" class="temp-save-button">임시저장</button>
+                <button type="submit" name="publish" value="1" class="save-button">글 작성</button> {% endcomment %}
+            </form>
+            {% comment %} <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>{{form.title}}</h2>
+                <p>{{form.content|safe}}</p>
+            </form> {% endcomment %}
+        </section>
+
+        <!-- 우측 부분 -->
+        <aside>
+            <div>
+                <button class="ai-button">AI 글 자동완성</button>
+            </div>
+            <div>
+                <h2><label for="topic">TOPIC</label></h2>
+                <input type="radio" id="topic1" name="topic" value="일상">
+                <label for="topic1">일상</label><br>
+                <input type="radio" id="topic2" name="topic" value="요리">
+                <label for="topic2">요리</label><br>
+                <input type="radio" id="topic3" name="topic" value="여행">
+                <label for="topic3">여행</label><br>
+                <input type="radio" id="topic4" name="topic" value="영화">
+                <label for="topic4">영화</label><br>
+                <input type="radio" id="topic5" name="topic" value="IT">
+                <label for="topic5">IT</label><br>
+            </div>
+            <div>
+                <h2><label for="uploadinfo">UPLOAD INFO</label></h2>
+                <div>상태: 미발행</div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer">
+            Made with Django | (C) 2023 Oreumi 2^2. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'js/write_scripts.js' %}"></script>
+</body>
+
+</html>
