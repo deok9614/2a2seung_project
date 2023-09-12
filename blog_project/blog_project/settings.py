@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os,json
+import os, json
 from django.core.exceptions import ImproperlyConfigured
 
 
@@ -28,6 +28,7 @@ secret_file = os.path.join(BASE_DIR, "secrets.json")
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
+
 def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
@@ -35,12 +36,50 @@ def get_secret(setting, secrets=secrets):
         error_msg = "Set the {} environment variable".format(setting)
         raise ImproperlyConfigured(error_msg)
 
+
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+# TinyMCE 텍스트 에디터 설정
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_DEFAULT_CONFIG = {
+    "cleanup_on_startup": True,
+    "custom_undo_redo_levels": 20,
+    "selector": "textarea",
+    "theme": "silver",
+    "plugins": """
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            """,
+    "toolbar1": """
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            """,
+    "toolbar2": """
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            """,
+    "contextmenu": "formats | link image",
+    "menubar": True,
+    "statusbar": True,
+    "theme_advanced_resizing": True,
+    "images_upload_url": "upload_image",
+    "width": "100%",
+    "height": 600,
+}
 
 
 # Application definition
@@ -54,6 +93,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "blog_app",
     "rest_framework",
+    "tinymce",
 ]
 
 MIDDLEWARE = [
