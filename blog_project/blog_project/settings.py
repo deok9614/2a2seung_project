@@ -89,16 +89,16 @@ WSGI_APPLICATION = "blog_project.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-with open("password.json") as f:
+with open("password.txt") as f:
     password_postresql = f.read()
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "blog_project",
-        "USER": "blog_project_user",
+        "USER": "postgres",
         "PASSWORD": password_postresql,
-        "HOST": "116.46.138.172",
+        "HOST": "blog-project-db.cminy4xslvpf.ap-northeast-2.rds.amazonaws.com",
         "PORT": "5432",
     }
 }
