@@ -8,4 +8,8 @@ urlpatterns = [
     path("", views.board, name="board"),
     path("write", views.write, name="write"),
     # path("", include("tinymce.urls")),
+    path("signup", views.signup, name="signup"),
+    path("board/", views.login_success, name="board"),
+    path("logout/", views.logout_view, name="logout"),
+    path("login", views.social_login_view, name="login"),
 ]
