@@ -1,24 +1,36 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/write.css' %}">
     <title>Write</title>
+
 </head>
+
 <body>
     <!-- HEADER -->
     <header>
-        <div class="logo">MYLOG</div>
-        <div>
-            <button class="category">일상</button>
-            <button class="category">요리</button>
-            <button class="category">여행</button>
-            <button class="category">영화</button>
-            <button class="category">IT</button>
-            <button class="">Logout</button>
-            <button class="">Just Write!</button>
+        <div class="logo">
+            <img src="\media\mylog.svg" id="mylog"></img>
+        </div>
+        <div class="nav_btn">
+            <div class="category_box">
+                <button class="category">일상</button>
+                <button class="category">요리</button>
+                <button class="category">여행</button>
+                <button class="category">영화</button>
+                <button class="category">IT</button>
+            </div>
+            <div class="logout_box">
+                <button class="logout_btn">Logout</button>
+            </div>
+            <div class="write_box">
+                <a href=""><button class="write_btn">Just Write!</button></a>
+            </div>
         </div>
     </header>
 
@@ -26,11 +38,10 @@
     <main>
         <!-- 글 작성 부분 -->
         <section>
-            <form action="" method="post">
-                <textarea name="textarea" id="default" cols="30" rows="10"></textarea><br>
-                {% comment %} <input type="file" name="image" accept="image/*">이미지 업로드</input>
-                <button type="submit" name="draft" value="1" class="temp-save-button">임시저장</button>
-                <button type="submit" name="publish" value="1" class="save-button">글 작성</button> {% endcomment %}
+            <form action="" method="post" class="container">
+                <div type="text" class="title" placeholder="제목"></div>
+                <textarea class="textarea" id="mytextarea">Hello, World!</textarea>
+
             </form>
             {% comment %} <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -41,25 +52,36 @@
 
         <!-- 우측 부분 -->
         <aside>
-            <div>
-                <button class="ai-button">AI 글 자동완성</button>
+            <button class="ai-button"><img src="\media\aibot.png" id="aibot"></img>AI 글 자동완성</button>
+            <div class="topic-container">
+                <div class="margin-left-ten">
+                    <h2><label for="topic">TOPIC</label></h2>
+                    <input type="radio" id="topic1" name="topic" value="일상">
+                    <label for="topic1" class="radio-text">일상</label><br>
+                    <input type="radio" id="topic2" name="topic" value="요리">
+                    <label for="topic2" class="radio-text">요리</label><br>
+                    <input type="radio" id="topic3" name="topic" value="여행">
+                    <label for="topic3" class="radio-text">여행</label><br>
+                    <input type="radio" id="topic4" name="topic" value="영화">
+                    <label for="topic4" class="radio-text">영화</label><br>
+                    <input type="radio" id="topic5" name="topic" value="IT">
+                    <label for="topic5" class="radio-text">IT</label><br>
+                </div>
+
             </div>
-            <div>
-                <h2><label for="topic">TOPIC</label></h2>
-                <input type="radio" id="topic1" name="topic" value="일상">
-                <label for="topic1">일상</label><br>
-                <input type="radio" id="topic2" name="topic" value="요리">
-                <label for="topic2">요리</label><br>
-                <input type="radio" id="topic3" name="topic" value="여행">
-                <label for="topic3">여행</label><br>
-                <input type="radio" id="topic4" name="topic" value="영화">
-                <label for="topic4">영화</label><br>
-                <input type="radio" id="topic5" name="topic" value="IT">
-                <label for="topic5">IT</label><br>
-            </div>
-            <div>
-                <h2><label for="uploadinfo">UPLOAD INFO</label></h2>
-                <div>상태: 미발행</div>
+            <div class="uploadinfo-container">
+                <h2 class="uploadinfo-container-title"><label for="uploadinfo">UPLOAD INFO</label></h2>
+                <div class="status-container">상태: 미발행</div>
+                <div class="input-container">
+                    <label class="input-label" for="input-file">이미지 업로드</label>
+                    <input style="display: none;" id="input-file" class="image-upload-button" type="file" name="image"
+                        accept="image/*"></input>
+                </div>
+                <div class="form-control-container">
+                    <button type="submit" name="draft" value="1" class="temp-save-button">임시저장</button>
+                    <button type="submit" name="publish" value="1" class="save-button">글 작성</button>
+                </div>
+
             </div>
         </aside>
     </main>
@@ -67,12 +89,17 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer">
-            Made with Django | (C) 2023 Oreumi 2^2. All rights reserved.
+            Made with&nbsp; <strong> Django </strong> &nbsp;| © 2023 Oreumi 2^2. All rights reserved.
         </div>
     </footer>
 
     <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static 'js/write_scripts.js' %}"></script>
+    <!-- <script src="{% static 'js/write_scripts.js' %}"></script> -->
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
 </body>
 
 </html>
