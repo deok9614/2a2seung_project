@@ -3,6 +3,10 @@ from .models import *
 from .forms import *
 from django.http import HttpResponse
 
+from django.contrib.auth import login
+from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm
+
 
 # Create your views here.
 def board(request):
@@ -38,3 +42,36 @@ def write(request):
     else:
         form = PostForm()
     return render(request, "blog_app/write.html", {"form": form})
+
+
+########## LOGIN ##########
+
+
+def social_login_view(request):
+    return render(request, "registration/login.html")
+
+
+def signup(request):
+    # 회원가입 버튼을 눌렀을때,
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("login")
+
+    # url 경로를 타고 맨 처음에 회원가입 페이지를 들어왔을때
+    else:
+        form = UserCreationForm()
+
+    return render(request, "registration/signup.html", {"form": form})
+
+
+def login_success(request):
+    username = request.user
+    return render(request, "blog_app/board.html", {"username": username})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("login")

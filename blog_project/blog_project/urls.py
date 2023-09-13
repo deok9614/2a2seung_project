@@ -24,6 +24,9 @@ urlpatterns = [
     path("", include("blog_app.urls")),
     # path("", include("registration.urls")),
     path("tinymce/", include("tinymce.urls")),
+    path("", include("blog_app.urls")),
+    path("", include("social_django.urls")),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:

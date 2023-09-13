@@ -1,0 +1,31 @@
+{% load static %} {% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/login.css' %}"/>
+    <title>LOGIN</title>
+</head>
+<body>
+    <div id="login-box">
+        <h2>Login</h2>
+        <div id="login-form">
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="id" placeholder="username">
+                <input type="text" name="pwd" placeholder="password">
+                {{form.as_p}}
+                <br>
+                <button type="submit">Login</button>
+            </form>
+            <p>아직 회원이 아니신가요? <a href="{% url 'signup' %}">회원가입</a></p>
+            <button type="button" onclick="location.href='{% url 'social:begin' 'google-oauth2'%}'">google 로그인</button>
+            <button type="button" onclick="location.href='{% url 'social:begin' 'naver'%}'">naver 로그인</button>
+            {% comment %} <a href="{% url 'social:begin' 'google-oauth2'%}">google 로그인</a><br>
+            <a href="{% url 'social:begin' 'naver'%}">naver 로그인</a>
+            <a href="{% provider_login_url 'kakao'%}">kakao 로그인</a> {% endcomment %}
+        </div>
+    </div>
+</body>
+</html>
