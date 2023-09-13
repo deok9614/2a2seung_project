@@ -24,11 +24,18 @@ urlpatterns = [
     path("", include("blog_app.urls")),
     # path("", include("registration.urls")),
     path("tinymce/", include("tinymce.urls")),
+<<<<<<< HEAD
     path("", include("blog_app.urls")),
     path("", include("social_django.urls")),
     path("accounts/", include("allauth.urls")),
+=======
+>>>>>>> client/admin
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+<<<<<<< HEAD
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+=======
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+>>>>>>> client/admin

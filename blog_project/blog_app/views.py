@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
+<<<<<<< HEAD
 def board(request):
     articles = Post.objects.all().order_by("-modified")
     username = request.user
@@ -75,3 +76,12 @@ def login_success(request):
 def logout_view(request):
     logout(request)
     return redirect("login")
+=======
+
+
+def board_client(request):
+    return render(request, 'blog_app/board_client.html')
+
+def board_admin(request):
+    return render(request, 'blog_app/board_admin.html')
+>>>>>>> client/admin
