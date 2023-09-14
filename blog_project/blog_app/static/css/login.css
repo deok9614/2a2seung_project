@@ -31,14 +31,21 @@ input {
     height: 2.125em;
     border: 0px;
     border-bottom: 1px solid #CAC8C5;
-    padding-bottom: 20px;
+    margin-bottom: 1em;
 }
 
-button {
+.input-button {
     width: 12.5em;
     height: 2.25em;
     border: 0px;
     background-color: #1E1E1E;
     color: #fff;
-    padding-bottom: 20px;
+    margin-bottom: 1em;
+}
+
+.social-button>button {
+    height: 2.25em;
+    border: 0px;
+    background-color: #1E1E1E;
+    color: #fff;
 }

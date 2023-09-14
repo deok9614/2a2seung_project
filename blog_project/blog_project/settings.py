@@ -104,7 +104,7 @@ INSTALLED_APPS = [
 # 구글 소셜 로그인 설정
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = get_secret("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = get_secret("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
-SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = "http://127.0.0.1:8000/board"
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = "http://127.0.0.1:8000/"
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.google.GoogleOAuth2",
@@ -132,6 +132,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
 ]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 ROOT_URLCONF = "blog_project.urls"
 

@@ -46,35 +46,20 @@ def write(request):
 
 ########## LOGIN ##########
 
+# def signup(request):
+#     # 회원가입 버튼을 눌렀을때,
+#     if request.method == "POST":
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect("login")
 
-def social_login_view(request):
-    return render(request, "registration/login.html")
+#     # url 경로를 타고 맨 처음에 회원가입 페이지를 들어왔을때
+#     else:
+#         form = UserCreationForm()
 
-
-def signup(request):
-    # 회원가입 버튼을 눌렀을때,
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("login")
-
-    # url 경로를 타고 맨 처음에 회원가입 페이지를 들어왔을때
-    else:
-        form = UserCreationForm()
-
-    return render(request, "registration/signup.html", {"form": form})
-
-
-def login_success(request):
-    username = request.user
-    return render(request, "blog_app/board.html", {"username": username})
-
-
-def logout_view(request):
-    logout(request)
-    return redirect("login")
+#     return render(request, "registration/signup.html", {"form": form})
 
 
 def board_client(request):
