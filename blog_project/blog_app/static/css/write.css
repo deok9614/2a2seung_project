@@ -141,16 +141,6 @@ p {
     gap: 8px;
 }
 
-
-
-.delete-button {
-    padding: 4px 17px;
-    border: none;
-    background-color: #ff3f3f;
-    color: #fff;
-    width: 100%;
-}
-
 .temp {
     border: 1px #1e1e1e solid;
     background-color: transparent;
@@ -262,7 +252,7 @@ button {
     border: none;
     border: 1px solid #1e1e1e;
     color: #1e1e1e;
-    width: 114px;
+    width: 115px;
     height: 25px;
 }
 
@@ -271,7 +261,16 @@ button {
     border: none;
     background-color: #1e1e1e;
     color: #fff;
-    width: 114px;
+    width: 115px;
+    height: 25px;
+}
+
+.delete-button {
+    padding: 4px 17px;
+    border: none;
+    background-color: #ff3f3f;
+    color: #fff;
+    width: 115px;
     height: 25px;
 }
 
