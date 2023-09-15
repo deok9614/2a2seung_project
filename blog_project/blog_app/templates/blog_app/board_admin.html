@@ -23,11 +23,10 @@
                 <a href=""><button class="category">여행</button></a>
                 <a href=""><button class="category">영화</button></a>
                 <a href=""><button class="category">IT</button></a>
+                <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
             </div>
             <div>
-
-                <a href=""></a><button class="login_btn">Login</button></a>
-
+                <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
             </div>
         </div>
     </header>

@@ -58,7 +58,8 @@ header {
     padding-right: 208px;
 }
 
-.category {
+.category,
+.logout_btn {
     border: none;
     background-color: transparent;
     font-size: 13px;
@@ -67,7 +68,8 @@ header {
 }
 
 
-.login_btn {
+.login_btn,
+.write_btn {
 
     width: 100px;
     height: 39px;
