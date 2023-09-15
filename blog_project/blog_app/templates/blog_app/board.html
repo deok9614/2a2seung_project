@@ -6,15 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="../../static/css/test.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
 
 <body>
-    <div class="container">
+        <!-- HEADER -->
         <header>
             <div class="logo">
-                <img src="\media\mylog.svg" id="mylog"></img>
+                <a href="{% url "board_admin" %}"><img src="\media\mylog.svg" id="mylog"></img></a>
             </div>
             <div class="nav_btn">
                 <div class="category_box">
@@ -25,13 +25,16 @@
                     <button class="category">IT</button>
                 </div>
                 <div class="logout_box">
-                    <button class="logout_btn">Logout</button>
+                    <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
                 </div>
                 <div class="write_box">
-                    <a href=""><button class="write_btn">Just Write!</button></a>
+                    <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
                 </div>
             </div>
         </header>
+    
+    <div class="container">
+
         <div class="box-divider">
             {% comment %} 본문 영역 {% endcomment %}
             <div class="big-box">
@@ -48,7 +51,7 @@
                     Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id purus
                     feugiat et mi justo scelerisque euismod euismod.</p>
                 <div class="post-content">
-                    <img src="../../static/img/sample_img.png" alt="테스트이미지">
+                    <img src="\media\sample_img.png" alt="테스트이미지">
                 </div>
                 <p>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus aliquam pellentesque.
                     Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id purus
@@ -61,11 +64,11 @@
             <div class="small-box">
                 <h3>Other posts</br>you may like</h3>
                 <div class="recommend-box">
-                    <img src="../../static/img/sample_img.png" alt="테스트이미지">
+                    <img src="\media\sample_img.png" alt="테스트이미지">
                     <a>Lorem ipsum dolor</a>
                 </div>
                 <div class="recommend-box">
-                    <img src="../../static/img/sample_img.png" alt="테스트이미지">
+                    <img src="\media\sample_img.png" alt="테스트이미지">
                     <a>Lorem ipsum dolor<a>
                 </div>
             </div>
