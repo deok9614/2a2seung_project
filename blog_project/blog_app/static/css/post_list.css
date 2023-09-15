@@ -59,7 +59,9 @@ header {
     padding-right: 40px;
 }
 
-.login_btn {
+.login_btn,
+.logout_btn,
+.write_btn {
     width: 100px;
     height: 39px;
     flex-shrink: 0;

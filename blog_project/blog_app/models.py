@@ -17,7 +17,7 @@ class BlogPost(models.Model):
     # image = models.ImageField(upload_to="post_images/", blank=True, null=True)
     # is_draft = models.BooleanField(default=False)
     # published = models.DateTimeField("Date published", default=timezone.now)
-    # modified = models.DateTimeField("Date modified", default=timezone.now)
+    modified = models.DateTimeField("Date modified", default=timezone.now)
 
     def __str__(self):
         return self.title

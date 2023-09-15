@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +16,7 @@
     <!-- HEADER -->
     <header>
         <div class="logo">
-            <img src="\media\mylog.svg" id="mylog"></img>
+            <a href="{% url "board_admin" %}"><img src="\media\mylog.svg" id="mylog"></img></a>
         </div>
         <div class="nav_btn">
             <div class="category_box">
@@ -28,10 +27,10 @@
                 <button class="category">IT</button>
             </div>
             <div class="logout_box">
-                <button class="logout_btn">Logout</button>
+                <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
             </div>
             <div class="write_box">
-                <a href=""><button class="write_btn">Just Write!</button></a>
+                <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
             </div>
         </div>
     </header>
