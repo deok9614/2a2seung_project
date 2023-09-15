@@ -35,6 +35,13 @@ header {
     z-index: 10;
 }
 
+.header_section {
+    background-color: #1E1E1E;
+
+}
+
+
+
 #mylog {
     width: 174px;
     height: 66.92px;
@@ -59,34 +66,34 @@ header {
     padding-right: 40px;
 }
 
-.login_btn,
-.logout_btn,
-.write_btn {
+
+.login_btn {
+
     width: 100px;
     height: 39px;
-    flex-shrink: 0;
+    border: none;
     border-radius: 2px;
     background: #F9F8F4;
-    color: #1E1E1E;
-    text-align: center;
-    font-family: Noto Sans KR;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+}
+
+.login_btn:hover {
+    box-shadow: rgba(128, 127, 132, 0.7) 0 0px 0px 40px inset;
 }
 
 /* .btn_readmore{
 } */
 
-.post-list {
+
+
+
+/* .post-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: auto;
     margin-top: 104px;
     margin-bottom: 200px;
-}
+} */
 
 /* 상단박스 */
 /* .first-post-box {
@@ -251,7 +258,10 @@ a {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* 3개의 열을 생성합니다. */
-    gap: 20px;
+    gap: 38px;
+    margin-top: 50px;
+    margin-left: 208px;
+    margin-right: 208px;
     /* 요소 사이의 간격 설정 */
 }
 
@@ -264,16 +274,32 @@ a {
 
 /* 아래 코드는 예시로 해당 클래스를 스타일링할 때 사용할 수 있습니다. */
 .posting_date {
-    font-weight: bold;
+    color: #1E1E1E;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    margin-top: 16px;
 }
 
 .posting_title {
-    font-size: 18px;
-    margin: 5px 0;
+    color: #1E1E1E;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 
 .posting_content {
-    font-size: 14px;
+    color: #1E1E1E;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    width: 316px;
 }
 
 
