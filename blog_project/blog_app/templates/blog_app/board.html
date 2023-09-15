@@ -1,28 +1,40 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>board_page</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/board.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
     <!-- <link rel="stylesheet" type="text/css" href="../static/css/write.css"> -->
 </head>
 <body>
-    <div class="container">
-        <div class="nav-bar">
-            <img src="../static/img/MYLOG.png" alt="MYLOG">
-            <div class="nav-container">
-                <a href="">일상</a>
-                <a href="">요리</a>
-                <a href="">여행</a>
-                <a href="">영화</a>
-                <a href="">IT</a>
-            </div>
-            <div>
-                <a href="">Logout</a>
-            </div>
-            <button class="nav-buttons">Just Write!</button>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">
+            <a href="{% url "board_admin" %}"><img src="\media\mylog.svg" id="mylog"></img></a>
         </div>
+        <div class="nav_btn">
+            <div class="category_box">
+                <button class="category">일상</button>
+                <button class="category">요리</button>
+                <button class="category">여행</button>
+                <button class="category">영화</button>
+                <button class="category">IT</button>
+            </div>
+            <div class="logout_box">
+                <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
+            </div>
+            <div class="write_box">
+                <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- MAIN -->
+
+    <div class="container">
         <div class="box-divider">
 
             <div class="big-box">
@@ -77,5 +89,11 @@
 
         </div>
     </div>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer">
+            Made with&nbsp; <strong> Django </strong> &nbsp;| © 2023 Oreumi 2^2. All rights reserved.
+        </div>
+    </footer>
 </body>
 </html>
