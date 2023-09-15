@@ -1,30 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>board_page</title>
-    <link rel="stylesheet" type="text/css" href="../static/css/board.css">
-    <!-- <link rel="stylesheet" type="text/css" href="../static/css/write.css"> -->
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/board.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
 </head>
-<body>
-    <div class="container">
-        <div class="nav-bar">
-            <img src="../static/img/MYLOG.png" alt="MYLOG">
-            <div class="nav-container">
-                <a href="">일상</a>
-                <a href="">요리</a>
-                <a href="">여행</a>
-                <a href="">영화</a>
-                <a href="">IT</a>
-            </div>
-            <div>
-                <a href="">Logout</a>
-            </div>
-            <button class="nav-buttons">Just Write!</button>
-        </div>
-        <div class="box-divider">
 
+<body>
+        <!-- HEADER -->
+        <header>
+            <div class="logo">
+                <a href="{% url "board_admin" %}"><img src="\media\mylog.svg" id="mylog"></img></a>
+            </div>
+            <div class="nav_btn">
+                <div class="category_box">
+                    <button class="category">일상</button>
+                    <button class="category">요리</button>
+                    <button class="category">여행</button>
+                    <button class="category">영화</button>
+                    <button class="category">IT</button>
+                </div>
+                <div class="logout_box">
+                    <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
+                </div>
+                <div class="write_box">
+                    <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
+                </div>
+            </div>
+        </header>
+    
+    <div class="container">
+
+        <div class="box-divider">
+            {% comment %} 본문 영역 {% endcomment %}
             <div class="big-box">
 
                 <div class="post-info">
@@ -33,49 +45,76 @@
                     <h1>Lorem ipsum dolor</h1>
                     <h5>by userid</h5>
                     <button class="topic-box">일상</button>
-                        
-                        <div class="post-content">
-                            <p>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus aliquam pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id purus feugiat et mi justo scelerisque euismod euismod.</p>
-                            <img src="../static/img/sample_img.png" alt="테스트이미지">
-                            <p>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus aliquam pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id purus feugiat et mi justo scelerisque euismod euismod. Turpis dictumst luctus nisi placerat purus dolor luctus vitae pretium. Gravida faucibus scelerisque quis mi consequat malesuada.</p>
-                        </div>
                 </div>
+                <!-- <div class="post-content"> -->
+                <p>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus aliquam pellentesque.
+                    Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id purus
+                    feugiat et mi justo scelerisque euismod euismod.</p>
+                <div class="post-content">
+                    <img src="\media\sample_img.png" alt="테스트이미지">
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus aliquam pellentesque.
+                    Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus id purus
+                    feugiat et mi justo scelerisque euismod euismod. Turpis dictumst luctus nisi placerat purus dolor
+                    luctus vitae pretium. Gravida faucibus scelerisque quis mi consequat malesuada.</p>
+                <!-- </div>         -->
             </div>
+
+            {% comment %} 추천글 영역 {% endcomment %}
             <div class="small-box">
-                <h3>Other posts you may like</h3>
-                <div class="post-content">
-                        <img src="../static/img/sample_img.png" alt="테스트이미지">
-                    <h2>Lorem ipsum dolor</h2>
+                <h3>Other posts</br>you may like</h3>
+                <div class="recommend-box">
+                    <img src="\media\sample_img.png" alt="테스트이미지">
+                    <a>Lorem ipsum dolor</a>
                 </div>
-                <div class="post-content">
-                    <div class="post-content img">
-                        <img src="../static/img/sample_img.png" alt="테스트이미지">
-                    </div>
-                    <h2>Lorem ipsum dolor</h2>
+                <div class="recommend-box">
+                    <img src="\media\sample_img.png" alt="테스트이미지">
+                    <a>Lorem ipsum dolor<a>
                 </div>
             </div>
-
-            <div class="button-box">
-                <button class="edit-button">수정하기</button>
-                <button class="delete-button">삭제하기</button>
-                <button class="share-button">공유하기</button>
-            </div>
-
-            <div class="another-post-box">
-                <p>다음글</p>
-                <a class="post-name">글의 제목입니다.</a>
-                <h6>2023.09.06</h6>
-            </div>
-
-            <div class="another-post-box">
-                <p>이전글</p>
-                <a class="post-name">글의 제목입니다.</a>
-                <h6>2023.09.06</h6>
-            </div>
         </div>
-        <div class="org_2">
 
+        <div class="button-box">
+            <button class="edit-button">수정하기</button>
+            <button class="delete-button">삭제하기</button>
+            <button class="share-button">공유하기</button>
         </div>
+
+        <div class="another-post-box">
+            <div class="post-box">
+                <div class="post-war">테스트 글</div>
+                <div class="post-name">
+                    <a href="">글의 제목입니다.</a>
+                </div>
+            </div>
+            <p>2023.09.06</p>
+        </div>
+        <div class="another-post-box">
+            <div class="post-box">
+                <div class="post-war">다음 글</div>
+                <div class="post-name">
+                    <a href="">글의 제목입니다.</a>
+                </div>
+            </div>
+            <p>2023.09.06</p>
+        </div>
+        <div class="another-post-box">
+            <div class="post-box">
+                <div class="post-war">이전 글</div>
+                <div class="post-name">
+                    <a href="">글의 제목입니다.</a>
+                </div>
+            </div>
+            <p>2023.09.06</p>
+        </div>
+        
     </div>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer">
+            Made with&nbsp; <strong> Django </strong> &nbsp;| © 2023 Oreumi 2^2. All rights reserved.
+        </div>
+    </footer>
 </body>
+
 </html>
