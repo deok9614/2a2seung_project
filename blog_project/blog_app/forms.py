@@ -16,3 +16,5 @@ class BlogPostForm(forms.ModelForm):
         self.fields["topic"].required = False
         self.fields["publish"].required = False
         self.fields["views"].required = False
+        self.fields["author_id"].required = False
+        self.fields["modified"].required = False

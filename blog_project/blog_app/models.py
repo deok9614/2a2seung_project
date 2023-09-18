@@ -11,7 +11,7 @@ class BlogPost(models.Model):
     topic = models.CharField(max_length=255, default="전체")
     publish = models.CharField(max_length=1, default="Y")
     views = models.IntegerField(default=0)
-    author_id = models.CharField(max_length=100, null=True, blank=True)
+    author_id = models.CharField(default="admin")
     modified = models.DateTimeField("Date modified", default=timezone.now)
 
     def __str__(self):

@@ -6,6 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import image_upload
 
+# app_name = "blog_app"
 urlpatterns = [
     path("board", views.board, name="board"),
     path("write", views.write, name="write"),

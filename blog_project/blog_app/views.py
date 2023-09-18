@@ -24,7 +24,7 @@ def board(request):
 
 
 # 포스트 업로드, 업데이트, 삭제 (강사님 함수 create_or_update_post)
-def write(request, post_id=None):
+def write(request):
     # 글수정 페이지의 경우
     # if post_id:
     #     post = get_object_or_404(BlogPost, id=post_id)
@@ -36,28 +36,35 @@ def write(request, post_id=None):
     #         .order_by("-created_at")
     #         .first()
     #     )
-
     # 업로드/수정 버튼 눌렀을 때
     if request.method == "POST":
-        form = BlogPostForm(request.POST, instance=post)
+        form = BlogPostForm(request.POST)
+        print(request.POST)
+        print(form.errors)
+        # form = BlogPostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            # title = form.cleaned_data["title"]
-            # content = form.cleaned_data["content"]
-            # # created_at = request.POST["created_at"]
-            # topic = request.POST["topic"]
-            # image = form.cleaned_data["image"]
-            # is_draft = bool(request.POST.get("draft"))  # '글 임시저장' 버튼 확인
-            # if is_draft:
-            #     # 글을 임시 저장합니다.
-            #     BlogPost.objects.create(
-            #         title=title, content=content, image=image, topic=topic, is_draft=True
-            #     )
-            # else:
-            #     # 글을 업로드합니다.
-            #     BlogPost.objects.create(
-            #         title=title, content=content, image=image, topic=topic, is_draft=False
-            #     )
+            print("폼")
+            post = form.save()
+            # post = form.save(commit=False)
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            # created_at = request.POST["created_at"]
+            topic = request.POST["topic"]
+            image = form.cleaned_data["image"]
+            is_draft = bool(request.POST.get("draft"))  # '글 임시저장' 버튼 확인
+            if is_draft:
+                # 글을 임시 저장합니다.
+                BlogPost.objects.create(
+                    title=title, content=content, image=image, topic=topic, is_draft=True
+                )
+                print("임시저장? 성공")
+
+            else:
+                # 글을 업로드합니다.
+                BlogPost.objects.create(
+                    title=title, content=content, image=image, topic=topic, is_draft=False
+                )
+                print("업로드성공")
 
             if "delete" in request.POST:
                 post.delete()
@@ -76,19 +83,20 @@ def write(request, post_id=None):
             post.author_id = request.user.username
 
             post.save()
-            return redirect(request, "blog_app/board.html")  # 업로드/수정 페이지로 이동
+            return redirect(request, "board")  # 업로드/수정 페이지로 이동
     else:
         form = BlogPostForm()
+        print(form.errors)
 
     template = "blog_app/write.html"
-    context = {
-        "form": form,
-        "post": post,
-        "edit_mode": post_id is not None,
-        "MEDIA_URL": settings.MEDIA_URL,
-    }  # edit_mode: 글 수정 모드여부
+    # context = {
+    #     "form": form,
+    #     "post": post,
+    #     "edit_mode": post_id is not None,
+    #     "MEDIA_URL": settings.MEDIA_URL,
+    # }  # edit_mode: 글 수정 모드여부
 
-    return render(request, template, context)
+    return render(request, template)
 
 
 # 이미지 업로드

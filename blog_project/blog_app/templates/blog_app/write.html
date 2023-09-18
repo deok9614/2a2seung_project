@@ -9,6 +9,34 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/write.css' %}">
     <script src="https://cdn.tiny.cloud/1/cig4n9ujjp5wqsgk6jqk8pcfi03mazpxf0hb3h3tz9129744/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>Write</title>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            images_upload_url: '{% url "image_upload" %}',
+        });
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+
+            // 이미지 업로드 후 에디터 내에 이미지 삽입
+            document.getElementById('imageUpload').addEventListener('change', function() {
+              let formData = new FormData();
+              formData.append('file', this.files[0]);
+
+              fetch('{% url "image_upload" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                  'X-CSRFToken': '{{ csrf_token }}'
+                }
+              })
+              .then(response => response.json())
+              .then(data => {
+                tinyMCE.activeEditor.insertContent(`<img src="${data.location}"/>`);
+              })
+              .catch(error => console.error('Error:', error));
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -39,14 +67,14 @@
 
         <form method="POST" enctype="multipart/form-data" action="{% url 'write'%}">
             {% csrf_token %}
+            <input type="submit" value="test">
             <div class="form-container">
                 <section>
                     <div class="write-box">
                         <input type="text" id="title" name="title" class="title" placeholder=" 제목" value="{{post.title }}">
-                        <textarea class="textarea" id="mytextarea" required>{{post.content}}</textarea>
+                        <textarea class="textarea" id="mytextarea" name="content">{{post.content}}</textarea>
                     </div>
                 </section>
-
             <!-- 우측 부분 -->
                 <aside>
                     <button type="button" class="ai-button">
@@ -79,20 +107,18 @@
                         <h2 class="uploadinfo-container-title"><label for="uploadinfo">UPLOAD INFO</label></h2>
                         <div class="status-container">상태: 미발행</div>
                         <div class="input-container">
-                            <input type="file" name="file" style="display: none;" id="input-file" class="image-upload-button" accept="image/*"></input>
+                            {% comment %} <input type="file" name="file" style="display: none;" id="imageUpload" class="image-upload-button" accept="image/*"></input> {% endcomment %}
                             <button type="button" class="input-label" for="input-file" onclick="document.getElementById('imageUpload').click();">이미지 업로드</button>
                         </div>
                         <div class="form-control-container">
                             <button type="submit" name="draft" value="1" class="temp-save-button">임시저장</button>
-                            <input type="submit" name="save" value="글 작성">
+                            <input type="submit" name="publish" value="Y">
                             <button type="submit" name="delete" value="1" class="delete-button">글 삭제</button>
-                        </div>
+                        </div>엇
 
                     </div>
                 </aside>
             </div>
-        <!-- 글 작성 부분 -->
-            
         </form>
     </main>
 
@@ -105,34 +131,6 @@
 
     {% comment %} <script src="{% static 'tinymce/tinymce.min.js' %}"></script> {% endcomment %}
     <!-- <script src="{% static 'js/write_scripts.js' %}"></script> -->
-    <script>
-        tinymce.init({
-            selector: '#mytextarea',
-            images_upload_url: '{% url "image_upload" %}',
-        });
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-
-            // 이미지 업로드 후 에디터 내에 이미지 삽입
-            document.getElementById('imageUpload').addEventListener('change', function() {
-              let formData = new FormData();
-              formData.append('file', this.files[0]);
-        
-              fetch('{% url "image_upload" %}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                  'X-CSRFToken': '{{ csrf_token }}'
-                }
-              })
-              .then(response => response.json())
-              .then(data => {
-                tinyMCE.activeEditor.insertContent(`<img src="${data.location}"/>`);
-              })
-              .catch(error => console.error('Error:', error));
-            });
-        });
-    </script>
 </body>
 
 </html>
