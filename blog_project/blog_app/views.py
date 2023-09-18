@@ -3,9 +3,9 @@ from .models import BlogPost
 from .forms import *
 from django.http import HttpResponse
 
-from django.contrib.auth import login
-from django.contrib.auth import logout
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 from django.views import View
 from django.http import JsonResponse
@@ -120,6 +120,30 @@ class image_upload(View):
 
 
 ########## LOGIN ##########
+
+
+def userLogin(request):
+    # 이미 로그인한 경우
+    if request.user.is_authenticated:
+        return redirect("board_admin")
+
+    else:
+        form = loginForm(data=request.POST or None)
+        if request.method == "POST":
+            # 입력정보가 유효한 경우 각 필드 정보 가져옴
+            if form.is_valid():
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password"]
+
+                # 위 정보로 사용자 인증(authenticate사용하여 superuser로 로그인 가능)
+                user = authenticate(request, username=username, password=password)
+
+                # 로그인이 성공한 경우
+                if user is not None:
+                    login(request, user)
+                    return redirect("board_admin")
+        return render(request, "registration/login.html", {"form": form})
+
 
 # def signup(request):
 #     # 회원가입 버튼을 눌렀을때,
