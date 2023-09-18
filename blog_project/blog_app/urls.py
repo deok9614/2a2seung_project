@@ -7,10 +7,10 @@ from django.conf.urls.static import static
 from .views import image_upload
 
 urlpatterns = [
-    path("admin", admin.site.urls),
     path("board", views.board, name="board"),
     path("write", views.write, name="write"),
-    path("edit_post/<int:post_id>", views.write, name="write"),
+    # path("create_post", views.create_post, name="create_post"),
+    # path("edit_post/<int:post_id>", views.write, name="write"),
     path("image-upload", image_upload.as_view(), name="image_upload"),
     path("post/<int:post_id>", views.post_detail, name="post_detail"),
     # path("", include("tinymce.urls")),
