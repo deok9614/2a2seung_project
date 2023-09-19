@@ -1,238 +1,172 @@
-/* 기본 셋팅 */
-* {
+*{
     font-family: 'Pretendard', sans-serif;
 }
 
-html {
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    border: 0;
-}
-
-body {
+body{
     background-color: #f9f8f4;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  margin-top: 104px;
+  margin-bottom: 200px;
+}
+
+/* 상단박스 */
+.first-post-box {
+    background-color: #1e1e1e;
+    height: 520px;
+    color: #fff;
     font-family: 'Pretendard', sans-serif;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
+
+}
+
+.first-post-box h3{
+    font-size: 48px;
+    font-weight: 700;
     margin: 0;
 }
 
-
+.first-post-box p{
+    font-weight: 300;
+    margin-bottom: 10px;
 }
 
-#mylog {
-    width: 174px;
-    height: 66.92px;
-    padding-left: 150px;
-}
-
-.nav_btn {
-    box-sizing: border-box;
+.first-post-box .container{
     display: flex;
-    flex-direction: row;
+    flex-direction: row; 
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-end;
-    width: 100%;
-    padding-right: 150px;
+    height: 415px;
 }
 
-.category_box {
-    padding-right: 50px;
-}
-
-.category,
-.logout_btn {
-    border: none;
-    background-color: transparent;
-    font-size: 15px;
-    padding-right: 10px;
+.first-post-box .container .post-info-box{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: -60px;
+    gap: 8px;
+    position: absolute;
     color: #fff;
+    z-index: 1;
+    height: auto;
+    width: 40%;
+    line-height: 2;
 }
 
-.logout_btn {
-    padding: 0px 30px;
-}
-
-/* 버튼에 호버 효과 적용 */
-.category:hover,
-.logout_btn:hover {
-    font-weight: bold;
-    /* 호버 상태일 때 폰트 굵게 표시 */
-    color: #7a7777;
-    /* 호버 상태일 때 폰트 색상 변경 */
-    /* 다른 스타일링 속성들 */
-}
-
-.login_btn,
-.write_btn {
-    width: 100px;
-    height: 39px;
-    border: none;
+.first-post-box button{
+    background-color: #3a3a3a;
+    color: #f9f8f4;
     border-radius: 2px;
-    background: #F9F8F4;
+    padding: 8px 18px;
+    width: fit-content;
+    font-size: 14px
 }
 
-.write_btn:hover,
-.login_btn:hover {
-    background-color: #898989;
+.first-post-box button:hover{
+    background-color: #474747;
+    transition: transform 0.8s;
+}
+
+.first-post-box .container .thumbnail-img {
+    opacity: 0.3;
+    height: -webkit-fill-available;
+}
+
+.first-post-box .container .thumbnail-img img{
+    object-fit: cover;
+    min-width: 600px;
+    min-height: -webkit-fill-available;
+    width: 100%; 
+    height: 100%; 
 }
 
 
-/* 대표 포스팅 화면 */
-/* 강사님 코드 참조 */
-.post-list {
+
+/* 하단박스 */
+.post-box {
+    display: block;
+    padding: 54px 0px;
+}
+
+
+.container{
+    width: 1024px;
+    margin: auto;    
+    display: flex;
+    gap: 38px; 
+    flex-wrap: wrap; 
+
+
+}
+
+.card{
+    width: calc((100% - (2 * 38px)) / 3); 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    margin-top: 104px;
-    margin-bottom: 200px;
+    gap: 16px;
+}
+
+.card:hover {
+    transform: scale(1.01);
+    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    transition: transform 0.8s, box-shadow 0.3s, background-color 0.3s;
 }
 
 
-
-
-}
-
-/* 메인 사진 */
-.board-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 450px;
-    width: 800px;
-    height: 700px;
-}
-
-.main_text {
-    position: absolute;
-    /* 절대 위치로 설정 */
-    top: 200px;
-    /* 이미지와 겹치는 부분 위에 위치하도록 조정 */
-    left: 450px;
-    /* 이미지 오른쪽에 위치하도록 조정 */
-    z-index: 2;
-    /* 다른 요소 위에 표시하도록 조정 (보통 이미지보다 위에 있어야 함) */
-    /* 다른 스타일 속성들 */
+.card-info-box {
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  color: #1e1e1e;
+  font-family: 'Pretendard', sans-serif;
 }
 
 
-.main_content {
-    width: 525px;
-    color: #FFF;
-    font-family: Pretendard;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 25px;
-    margin-top: 10px;
-    /* 192.308% */
+h3 {
+    font-family: 'Pretendard', sans-serif;
+  font-size: 20px;
+  margin-bottom: 8px;
 }
-
-
-.btn_readmore {
-    position: absolute;
-    width: 108px;
-    height: 39px;
-    flex-shrink: 0;
-    border: none;
-    border-radius: 2px;
-    background: #3A3A3A;
-    color: #FFF;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 25px;
-    left: 450px;
-    top: 430px;
-}
-
-.btn_readmore:hover {
-    background-color: #898989;
-}
-
-.posting_section {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* 3개의 열을 생성합니다. */
-    gap: 100px;
-    margin: 50px 450px;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid black; */
-    box-sizing: border-box;
-    /* 요소 사이의 간격 설정 */
-}
-
-.posting {
-    /* border: 1px solid red; */
-    /* 각 요소에 테두리 추가 (선택적) */
-    width: 450px;
-    /* 각 요소 주위의 패딩 추가 (선택적) */
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
-/* 아래 코드는 예시로 해당 클래스를 스타일링할 때 사용할 수 있습니다. */
-.posting_date {
-    width: 450px;
-    color: #1E1E1E;
-    font-family: Pretendard;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 25px;
-    margin-top: 16px;
-}
-
-.posting_title {
-    width: 450px;
-    color: #1E1E1E;
-    font-family: Pretendard;
+.card-info-box h3{
     font-size: 20px;
-    font-style: normal;
     font-weight: 700;
-    line-height: normal;
-    margin-top: 8px;
 }
 
-.posting_content {
-    color: #1E1E1E;
-    font-family: Pretendard;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 25px;
-    width: 450px;
-    margin-top: 8px;
+.card-info-box p {
+  font-size: 14px;
+  margin-bottom: 8px;
 }
 
+.sub-info {
+  color: #7c7c7c;
+  display: flex;
+  gap: 20px;
+  font-size: 15px;
+}
 
-/* Footer 부분 */
-footer {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: end;
+a {
+  text-decoration: none;
+  color: #111;
+}
+
+.card-thumbnail-img {
     width: 100%;
-    height: 200px;
-    background-color: #E7E3DA;
-    box-sizing: border-box;
-}
-
-.footer {
-    height: 200px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #393939;
-    display: flex;
-    justify-content: end;
-    padding-right: 150px;
-    align-items: center;
-}
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .card-thumbnail-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

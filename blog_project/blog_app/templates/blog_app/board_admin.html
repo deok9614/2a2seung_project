@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="../../static/img/고양이.jpg">
     <link rel="stylesheet" type="text/css" href="{% static 'css/post_list.css' %}">
     <title>Main_Admin</title>
 </head>
@@ -30,27 +31,56 @@
         </div>
     </header>
 
-    <section>
         <div id="post-list" class="post-list">
-            {% for post in posts %} {% if forloop.first %}
-            <div class="header_section"> <!-- 강사님: first-post-box-->
-                <div class="main_text"> <!-- 강사님: container-->
-                    <a href="{% url 'post_detail' post.id %}">
-                        <div>
-                            <div class="main_title">{{ post.id }}</div>
-                            <div class="main_title">{{ post.title }}</div>
-                            <div class="main_content">{{ post.content|text_only }}</div>
-                            <button class="btn_readmore">READ MORE</button>
-                        </div>
-                    </a>
+          {% for post in posts %} {% if forloop.first %}
+          <div class="first-post-box">
+            <div class="container">
+              <a
+                href="{% url 'post_detail' post.id %}"
+                class="post-info-box-link"
+              >
+                <div class="post-info-box">
+                  <h3>{{ post.title }}</h3>
+                  <p>{{ post.content|text_only }}</p>
+                  <button>READ MORE</button>
                 </div>
-                <img src="{{ post.content|get_img_src }}" alt="" class="board-image" />
+              </a>
+              <div class="thumbnail-img">
+                <img src="{{ post.content|get_img_src }}" alt="" />
+              </div>
             </div>
-            {% endif %} {% endfor %}
+          </div>
+          {% endif %} {% endfor %}
+    
+          <div class="post-box">
+            <div class="container">
+              {% for post in posts %} {% if not forloop.first %}
+              <div class="card">
+                <div class="card-thumbnail-img">
+                  {% if post.content|get_img_src %}
+                  <img src="{{ post.content|get_img_src }}" alt="Thumbnail image" />
+                  {% else %}
+                  <div
+                    style="width: 100%; height: 100%; background-color: transparent"
+                  ></div>
+                  {% endif %}
+                </div>
+                <a
+                  href="{% url 'post_detail' post.id %}"
+                  class="post-info-box-link"
+                >
+                  <div class="card-info-box">
+                    <p>{{ post.created_at }}</p>
+    
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content|text_only }}</p>
+                  </div>
+                </a>
+              </div>
+              {% endif %} {% endfor %}
+            </div>
+          </div>
         </div>
-
-
-    </section>
 
     <!-- FOOTER -->
     <footer>
