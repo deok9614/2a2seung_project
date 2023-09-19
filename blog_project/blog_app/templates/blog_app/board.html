@@ -134,5 +134,29 @@
       // 알림 표시
       alert('포스트 링크가 클립보드에 복사되었습니다');
     });
-  </script>
+</script>
+<script>
+  // 이미지 태그의 src 속성에 "/"를 추가
+  var postContent = document.querySelector('.post-content');
+  var imgTags = postContent.querySelectorAll('img');
+  for (var i = 0; i < imgTags.length; i++) {
+      var imgSrc = imgTags[i].getAttribute('src');
+      // 이미지 태그의 src 속성 앞에 "/"를 추가
+      if (imgSrc && !imgSrc.startsWith('/')) {
+          imgTags[i].setAttribute('src', '/' + imgSrc);
+      }
+  }
+</script>
+<script>
+  // 이미지 태그의 src 속성에 "/"를 추가
+  var recommendedPosts = document.querySelectorAll('.recommend-box');
+  for (var i = 0; i < recommendedPosts.length; i++) {
+      var imgTag = recommendedPosts[i].querySelector('img');
+      var imgSrc = imgTag.getAttribute('src');
+      // 이미지 태그의 src 속성 앞에 "/"를 추가
+      if (imgSrc && !imgSrc.startsWith('/')) {
+          imgTag.setAttribute('src', '/' + imgSrc);
+      }
+  }
+</script>
 </html>
