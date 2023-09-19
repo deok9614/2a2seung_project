@@ -6,15 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/post_list.css' %}">
-    <title>Document</title>
+    <title>Main_Client</title>
 </head>
 
 <body>
     <!-- HEADER -->
     <header>
         <div class="logo">
-            <a href="{% url 'board_client' %}"><img src="\media\board_client_log.svg" id="mylog"
-                    href="{% url 'board_client' %}"></img></a>
+            <a href="{% url 'board_client' %}"><img src="\media\board_client_log.svg" id="mylog"></img></a>
         </div>
         <div class="nav_btn">
             <div class="category_box">
@@ -49,7 +48,7 @@
                     </div>
                 </div>
                 <button class="btn_readmore">READ MORE</button>
-                <img class="board-image" src="\media\board_image.svg">
+                <img src="\media\board_image.svg" class="board-image">
             </div>
         </article>
 
