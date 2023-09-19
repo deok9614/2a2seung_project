@@ -9,34 +9,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/write.css' %}">
     <script src="https://cdn.tiny.cloud/1/cig4n9ujjp5wqsgk6jqk8pcfi03mazpxf0hb3h3tz9129744/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <title>{% if editPost %}포스트 수정{% else %}포스트 작성{% endif %}</title>
-    <script>
-        tinymce.init({
-            selector: '#mytextarea',
-            images_upload_url: '{% url "image_upload" %}',
-        });
-
-        document.addEventListener('DOMContentLoaded', (event) => {
-
-            // 이미지 업로드 후 에디터 내에 이미지 삽입
-            document.getElementById('imageUpload').addEventListener('change', function() {
-              let formData = new FormData();
-              formData.append('file', this.files[0]);
-
-              fetch('{% url "image_upload" %}', {
-                method: 'POST',
-                body: formData,
-                headers: {
-                  'X-CSRFToken': '{{ csrf_token }}'
-                }
-              })
-              .then(response => response.json())
-              .then(data => {
-                tinyMCE.activeEditor.insertContent(`<img src="${data.location}"/>`);
-              })
-              .catch(error => console.error('Error:', error));
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -57,14 +29,14 @@
                 <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
             </div>
             <div class="write_box">
-                <a href="{% url "writePost" %}"><button class="write_btn">Just Write!</button></a>
+                <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
             </div>
         </div>
     </header>
 
     <!-- MAIN -->
     <main>
-        <form method="POST" enctype="multipart/form-data" action="{% if editPost %}{% url 'writePost' post.id %}{% else %}{% url 'writePost' %}{% endif %}">
+        <form method="POST" enctype="multipart/form-data" action="{% if editPost %}{% url 'write' post.id %}{% else %}{% url 'write' %}{% endif %}">
             {% csrf_token %}
             <div class="form-container">
                 <section>
@@ -75,10 +47,10 @@
                 </section>
             <!-- 우측 부분 -->
                 <aside>
-                    <button type="button" class="ai-button">
-                        <img id="aibot" src="\media\aibot.png" alt="AI 아이콘"/>
-                        <div>
-                            <img src="\media\loading.gif" alt="로딩 중">
+                    <button type="button" class="ai-button" id="aiAutocompleteButton" >
+                        <img id="ai-img" src="\media\aibot.png" alt="AI 아이콘"/>
+                        <div id="loading-animation" style="display:none">
+                            <img  src="\media\loading.gif" alt="로딩 중">
                         </div>
                         AI 글 자동완성
                     </button>
@@ -105,7 +77,7 @@
                         <h2 class="uploadinfo-container-title"><label for="uploadinfo">UPLOAD INFO</label></h2>
                         <div class="status-container">상태: {% if editPost %}발행{% else %}미발행{% endif %}</div>
                         <div class="input-container">
-                            {% comment %} <input type="file" name="file" style="display: none;" id="imageUpload" class="image-upload-button" accept="image/*"></input> {% endcomment %}
+                            <input type="file" name="file" style="display: none;" id="imageUpload" class="image-upload-button" accept="image/*"></input>
                             <button type="button" class="input-label" for="input-file" onclick="document.getElementById('imageUpload').click();">이미지 업로드</button>
                         </div>
                         <div class="form-control-container">
@@ -138,5 +110,65 @@
     {% comment %} <script src="{% static 'tinymce/tinymce.min.js' %}"></script> {% endcomment %}
     <!-- <script src="{% static 'js/write_scripts.js' %}"></script> -->
 </body>
+<script>
+    tinymce.init({
+      selector: '#mytextarea',
+      images_upload_url: '{% url "image_upload" %}',
+    });
+  
+    document.addEventListener('DOMContentLoaded', (event) => {
 
+      // 이미지 업로드 후 에디터 내에 이미지 삽입
+      document.getElementById('imageUpload').addEventListener('change', function() {
+        let formData = new FormData();
+        formData.append('file', this.files[0]);
+  
+        fetch('{% url "image_upload" %}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          tinyMCE.activeEditor.insertContent(`<img src="${data.location}"/>`);
+        })
+        .catch(error => console.error('Error:', error));
+      });
+  
+      // AI 글 자동완성
+      document.getElementById('aiAutocompleteButton').addEventListener('click', function() {
+        // 로딩 애니메이션 
+        document.getElementById('loading-animation').style.display = 'block';
+        document.getElementById('ai-img').style.display = 'none';
+
+        let title = document.getElementById('title').value;
+        fetch('/autocomplete/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': '{{ csrf_token }}',
+          },
+          body: new URLSearchParams({
+            'title': title
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('loading-animation').style.display = 'none';
+          document.getElementById('ai-img').style.display = 'block';
+      
+          //기존 내용에 자동완성 된 내용 더함
+          let currentContent = tinyMCE.activeEditor.getContent();
+        data.message = data.message.replace(/\n/g, '<br>');
+        tinyMCE.activeEditor.setContent(currentContent + data.message);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('loading-animation').style.display = 'none';
+        });
+      });
+    });
+  </script>
 </html>

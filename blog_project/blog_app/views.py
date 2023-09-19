@@ -11,6 +11,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.conf import settings
 from django.core.files.storage import default_storage
+import openai
 
 
 # Create your views here.
@@ -38,27 +39,10 @@ def write(request, post_id=None):
     # 업로드/수정 버튼 눌렀을 때
     if request.method == "POST":
         form = BlogPostForm(request.POST)
-
+        print(form.errors)
         # form = BlogPostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            # title = form.cleaned_data["title"]
-            # content = form.cleaned_data["content"]
-            # created_at = request.POST["created_at"]
-            # topic = request.POST["topic"]
-            # image = form.cleaned_data["image"]
-            # is_draft = bool(request.POST.get("draft"))  # '글 임시저장' 버튼 확인
-            # if is_draft:
-            #     # 글을 임시 저장합니다.
-            #     BlogPost.objects.create(
-            #         title=title, content=content, image=image, topic=topic, is_draft=True
-            #     )
-
-            # else:
-            #     # 글을 업로드합니다.
-            #     BlogPost.objects.create(
-            #         title=title, content=content, image=image, topic=topic, is_draft=False
-            #     )
+            post = form.save()
 
             if "delete" in request.POST:
                 post.delete()
@@ -72,9 +56,8 @@ def write(request, post_id=None):
 
             # 글쓴이 설정
             post.author_id = request.user.username
-
             post.save()
-            return redirect(request, "board")
+            return redirect("board")
     else:
         form = BlogPostForm(instance=post)
 
@@ -85,6 +68,7 @@ def write(request, post_id=None):
         "MEDIA_URL": settings.MEDIA_URL,
     }  # edit_mode: 글 수정 모드여부
 
+    print("??????")
     return render(request, "blog_app/write.html", context)
 
 
@@ -106,6 +90,32 @@ class image_upload(View):
 
         # 이미지 업로드 완료시 JSON 응답으로 이미지 파일의 url 반환
         return JsonResponse({"location": file_url})
+
+
+with open("api.txt") as f:
+    api_key = f.read()
+
+openai.api_key = api_key
+
+
+def autocomplete(request):
+    if request.method == "POST":
+        # 제목 필드값 가져옴
+        prompt = request.POST.get("title")
+        try:
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": prompt},
+                ],
+            )
+            # 반환된 응답에서 텍스트 추출해 변수에 저장
+            message = response["choices"][0]["message"]["content"]
+        except Exception as e:
+            message = str(e)
+        return JsonResponse({"message": message})
+    return render(request, "autocomplete.html")
 
 
 ########## LOGIN ##########
@@ -158,8 +168,8 @@ def board_admin(request):
     return render(request, "blog_app/board_admin.html")
 
 
-def write_page(request):
-    return render(request, "blog_app/write.html")
+# def write_page(request):
+#     return render(request, "blog_app/write.html")
 
 
 def post_detail(request, post_id):

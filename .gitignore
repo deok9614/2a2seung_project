@@ -144,6 +144,7 @@ venv.bak/
 django_env/
 secrets.json
 password.txt
+api.txt
 
 # Spyder project settings
 .spyderproject

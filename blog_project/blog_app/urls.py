@@ -11,13 +11,14 @@ urlpatterns = [
     path("logout", auth_views.LogoutView.as_view(), name="logout"),
     path("", views.board_client, name="board_client"),
     path("board", views.board, name="board"),
-    path("writePost", views.write, name="writePost"),
+    path("write", views.write, name="write"),
     path("editPost/<int:post_id>", views.write, name="editPost"),
-    path("image-upload", image_upload.as_view(), name="image_upload"),
+    path("image_upload", image_upload.as_view(), name="image_upload"),
     path("post/<int:post_id>", views.post_detail, name="post_detail"),
     # path("", include("tinymce.urls")),
     # path("board", views.login_success, name="board"),
     path("board_admin", views.board_admin, name="board_admin"),
+    path("autocomplete/", views.autocomplete, name="autocomplete"),
 ]
 
 if settings.DEBUG:
