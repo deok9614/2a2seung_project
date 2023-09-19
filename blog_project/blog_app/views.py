@@ -164,8 +164,16 @@ def board_client(request):
     return render(request, "blog_app/board_client.html")
 
 
-def board_admin(request):
-    return render(request, "blog_app/board_admin.html")
+def board_admin(request, topic=None):
+    # 특정 주제로 필터링
+    if topic:
+        posts = BlogPost.objects.filter(topic=topic, publish="Y").order_by("-views")
+        print(posts)
+
+    else:
+        posts = BlogPost.objects.filter(publish="Y").order_by("-views")
+        print(posts)
+    return render(request, "blog_app/board_admin.html", {"posts": posts})
 
 
 # def write_page(request):

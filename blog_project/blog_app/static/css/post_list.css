@@ -67,18 +67,6 @@ header {
     color: #fff;
 }
 
-.write_btn {
-    background-color: #000;
-    color: #fff;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100px;
-    height: 35px;
-    font-size: 15px;
-}
-
 .logout_btn {
     padding: 0px 30px;
 }
@@ -95,7 +83,6 @@ header {
 
 .login_btn,
 .write_btn {
-
     width: 100px;
     height: 39px;
     border: none;
@@ -103,15 +90,26 @@ header {
     background: #F9F8F4;
 }
 
-.write_btn:hover {
-    background-color: #898989;
-}
-
+.write_btn:hover,
 .login_btn:hover {
     background-color: #898989;
 }
 
+
 /* 대표 포스팅 화면 */
+/* 강사님 코드 참조 */
+.post-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    margin-top: 104px;
+    margin-bottom: 200px;
+}
+
+
+
+
 .header_section {
     position: relative;
     margin-top: 90px;
@@ -130,7 +128,7 @@ header {
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 400px;
+    right: 450px;
     width: 800px;
     height: 700px;
 }
@@ -140,7 +138,7 @@ header {
     /* 절대 위치로 설정 */
     top: 200px;
     /* 이미지와 겹치는 부분 위에 위치하도록 조정 */
-    left: 400px;
+    left: 450px;
     /* 이미지 오른쪽에 위치하도록 조정 */
     z-index: 2;
     /* 다른 요소 위에 표시하도록 조정 (보통 이미지보다 위에 있어야 함) */
@@ -164,7 +162,7 @@ header {
     font-style: normal;
     font-weight: 400;
     line-height: 25px;
-    margin-top: 8px;
+    margin-top: 10px;
     /* 192.308% */
 }
 
@@ -181,211 +179,40 @@ header {
     font-size: 13px;
     font-weight: 400;
     line-height: 25px;
-    left: 400px;
-    top: 420px;
+    left: 450px;
+    top: 430px;
 }
 
 .btn_readmore:hover {
     background-color: #898989;
 }
 
-
-/* .btn_readmore{
-} */
-
-
-
-
-/* .post-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    margin-top: 104px;
-    margin-bottom: 200px;
-} */
-
-/* 상단박스 */
-/* .first-post-box {
-    background-color: #1e1e1e;
-    height: 520px;
-    color: #fff;
-    font-family: 'Pretendard', sans-serif;
-
-}
-
-.first-post-box h3 {
-    font-size: 48px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.first-post-box p {
-    font-weight: 300;
-    margin-bottom: 10px;
-}
-
-.first-post-box .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 415px;
-}
-
-.first-post-box .container .post-info-box {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-top: -60px;
-    gap: 8px;
-    position: absolute;
-    color: #fff;
-    z-index: 1;
-    height: auto;
-    width: 40%;
-    line-height: 2;
-}
-
-.first-post-box button {
-    background-color: #3a3a3a;
-    color: #f9f8f4;
-    border-radius: 2px;
-    padding: 8px 18px;
-    width: fit-content;
-    font-size: 14px
-}
-
-.first-post-box button:hover {
-    background-color: #474747;
-    transition: transform 0.8s;
-}
-
-.first-post-box .container .thumbnail-img {
-    opacity: 0.3;
-    height: -webkit-fill-available;
-}
-
-.first-post-box .container .thumbnail-img img {
-    object-fit: cover;
-    min-width: 600px;
-    min-height: -webkit-fill-available;
-    width: 100%;
-    height: 100%;
-}
-
-
-
-/* 하단박스 */
-/* .post-box {
-    display: block;
-    padding: 54px 0px;
-}
-
-
-.container {
-    width: 1024px;
-    margin: auto;
-    display: flex;
-    gap: 38px;
-    flex-wrap: wrap;
-
-
-}
-
-.card {
-    width: calc((100% - (2 * 38px)) / 3);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.card:hover {
-    transform: scale(1.01);
-    box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1);
-    background-color: #f5f5f5;
-    transition: transform 0.8s, box-shadow 0.3s, background-color 0.3s;
-}
-
-
-.card-info-box {
-    display: flex;
-    flex-direction: column;
-    height: 160px;
-    color: #1e1e1e;
-    font-family: 'Pretendard', sans-serif;
-}
-
-
-h3 {
-    font-family: 'Pretendard', sans-serif;
-    font-size: 20px;
-    margin-bottom: 8px;
-}
-
-.card-info-box h3 {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.card-info-box p {
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.sub-info {
-    color: #7c7c7c;
-    display: flex;
-    gap: 20px;
-    font-size: 15px;
-}
-
-a {
-    text-decoration: none;
-    color: #111;
-}
-
-.card-thumbnail-img {
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-    position: relative;
-}
-
-.card-thumbnail-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
-
-
-
 .posting_section {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* 3개의 열을 생성합니다. */
-    gap: 38px;
-    margin: 50px 208px 58px;
-
+    gap: 100px;
+    margin: 50px 450px;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+    box-sizing: border-box;
     /* 요소 사이의 간격 설정 */
 }
 
 .posting {
-    border: 1px;
+    /* border: 1px solid red; */
     /* 각 요소에 테두리 추가 (선택적) */
-    width: 316px;
+    width: 450px;
     /* 각 요소 주위의 패딩 추가 (선택적) */
-
-
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
 }
 
 /* 아래 코드는 예시로 해당 클래스를 스타일링할 때 사용할 수 있습니다. */
 .posting_date {
-    width: 316px;
+    width: 450px;
     color: #1E1E1E;
     font-family: Pretendard;
     font-size: 13px;
@@ -396,7 +223,7 @@ a {
 }
 
 .posting_title {
-    width: 316px;
+    width: 450px;
     color: #1E1E1E;
     font-family: Pretendard;
     font-size: 20px;
@@ -413,7 +240,7 @@ a {
     font-style: normal;
     font-weight: 400;
     line-height: 25px;
-    width: 316px;
+    width: 450px;
     margin-top: 8px;
 }
 
