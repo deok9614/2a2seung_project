@@ -6,14 +6,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from .views import image_upload
 
-# app_name = "blog_app"
 urlpatterns = [
     path("login", views.userLogin, name="login"),
     path("logout", auth_views.LogoutView.as_view(), name="logout"),
     path("", views.board_client, name="board_client"),
     path("board", views.board, name="board"),
-    path("write", views.write, name="write"),
-    path("edit_post/<int:post_id>", views.write, name="write"),
+    path("writePost", views.write, name="writePost"),
+    path("editPost/<int:post_id>", views.write, name="editPost"),
     path("image-upload", image_upload.as_view(), name="image_upload"),
     path("post/<int:post_id>", views.post_detail, name="post_detail"),
     # path("", include("tinymce.urls")),

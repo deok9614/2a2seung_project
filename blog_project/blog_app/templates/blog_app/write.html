@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/write.css' %}">
     <script src="https://cdn.tiny.cloud/1/cig4n9ujjp5wqsgk6jqk8pcfi03mazpxf0hb3h3tz9129744/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <title>{% if edit_mode %}포스트 수정{% else %}포스트 작성{% endif %}</title>
+    <title>{% if editPost %}포스트 수정{% else %}포스트 작성{% endif %}</title>
     <script>
         tinymce.init({
             selector: '#mytextarea',
@@ -57,21 +57,19 @@
                 <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
             </div>
             <div class="write_box">
-                <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
+                <a href="{% url "writePost" %}"><button class="write_btn">Just Write!</button></a>
             </div>
         </div>
     </header>
 
     <!-- MAIN -->
     <main>
-
-        <form method="POST" enctype="multipart/form-data" action="{% url 'write'%}">
+        <form method="POST" enctype="multipart/form-data" action="{% if editPost %}{% url 'writePost' post.id %}{% else %}{% url 'writePost' %}{% endif %}">
             {% csrf_token %}
-            <input type="submit" value="test">
             <div class="form-container">
                 <section>
                     <div class="write-box">
-                        <input type="text" id="title" name="title" class="title" placeholder=" 제목" value="{{post.title }}">
+                        <input type="text" id="title" name="title" class="title" placeholder=" 제목" value="{{post.title}}">
                         <textarea class="textarea" id="mytextarea" name="content">{{post.content}}</textarea>
                     </div>
                 </section>
@@ -88,7 +86,7 @@
                     <div class="topic-container">
                         <div class="margin-left-ten">
                             <h2><label for="topic">TOPIC</label></h2>
-                            <input type="radio" id="topic1" name="topic" value="전체" {% if topic == '전체' %}checked{% endif %}>
+                            <input type="radio" id="topic1" name="topic" value="전체" checked>
                             <label for="topic1" class="radio-text">전체</label><br>
                             <input type="radio" id="topic1" name="topic" value="일상" {% if topic == '일상' %}checked{% endif %}>
                             <label for="topic1" class="radio-text">일상</label><br>
@@ -105,16 +103,24 @@
                     </div>
                     <div class="uploadinfo-container">
                         <h2 class="uploadinfo-container-title"><label for="uploadinfo">UPLOAD INFO</label></h2>
-                        <div class="status-container">상태: 미발행</div>
+                        <div class="status-container">상태: {% if editPost %}발행{% else %}미발행{% endif %}</div>
                         <div class="input-container">
                             {% comment %} <input type="file" name="file" style="display: none;" id="imageUpload" class="image-upload-button" accept="image/*"></input> {% endcomment %}
                             <button type="button" class="input-label" for="input-file" onclick="document.getElementById('imageUpload').click();">이미지 업로드</button>
                         </div>
                         <div class="form-control-container">
-                            <button type="submit" name="draft" value="1" class="temp-save-button">임시저장</button>
+                            {% if editPost %}
+                            <input type="submit" name="delete" class="delete" value="삭제"/>
+                            <input type="submit" class="save-button" value="수정"/>
+                            
+                            {% else %}
+                            <input type="submit" name="draft" class="draft" value="임시저장" />
+                            <input type="submit" name="save-button" class="save-button" value="글 작성" />
+                            {% endif %}
+                            {% comment %} <button type="submit" name="draft" value="1" class="temp-save-button">임시저장</button>
                             <input type="submit" name="publish" value="Y">
-                            <button type="submit" name="delete" value="1" class="delete-button">글 삭제</button>
-                        </div>엇
+                            <button type="submit" name="delete" value="1" class="delete-button">글 삭제</button> {% endcomment %}
+                        </div>
 
                     </div>
                 </aside>
