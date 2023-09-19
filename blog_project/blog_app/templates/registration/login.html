@@ -14,8 +14,7 @@
             {% block loginContents %}
             <form method="post">
                 {% csrf_token %}
-                <input type="text" name="username" id="username" placeholder="username">
-                <input type="text" name="password" id="password" placeholder="password">
+                {{ form.as_p }}
                 <br>
                 <button class="input-button" type="submit">Login</button>
             </form>
@@ -25,9 +24,6 @@
                 <button type="button" onclick="location.href='{% url 'social:begin' 'google-oauth2'%}'">google 로그인</button>
                 <button type="button" onclick="location.href='{% url 'social:begin' 'naver'%}'">naver 로그인</button>
             </div>
-            {% comment %} <a href="{% url 'social:begin' 'google-oauth2'%}">google 로그인</a><br>
-            <a href="{% url 'social:begin' 'naver'%}">naver 로그인</a>
-            <a href="{% provider_login_url 'kakao'%}">kakao 로그인</a> {% endcomment %}
         </div>
     </div>
 </body>

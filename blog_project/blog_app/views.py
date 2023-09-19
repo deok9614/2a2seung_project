@@ -3,9 +3,9 @@ from .models import BlogPost
 from .forms import *
 from django.http import HttpResponse
 
-from django.contrib.auth import login
-from django.contrib.auth import logout
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 from django.views import View
 from django.http import JsonResponse
@@ -24,39 +24,79 @@ def board(request):
 
 
 # 포스트 업로드, 업데이트, 삭제 (강사님 함수 create_or_update_post)
-def write(request, post_id=None):
+def write(request):
     # 글수정 페이지의 경우
-    if post_id:
-        post = get_object_or_404(BlogPost, id=post_id)
+    # if post_id:
+    #     post = get_object_or_404(BlogPost, id=post_id)
 
-    # 글쓰기 페이지의 경우, 임시저장한 글이 있는지 검색 => 에러나서 미완
-    else:
-        post = BlogPost()
-
+    # # 글쓰기 페이지의 경우, 임시저장한 글이 있는지 검색 => 에러나서 미완
+    # else:
+    #     post = (
+    #         BlogPost.objects.filter(author_id=request.user.username, publish="N")
+    #         .order_by("-created_at")
+    #         .first()
+    #     )
     # 업로드/수정 버튼 눌렀을 때
     if request.method == "POST":
         form = BlogPostForm(request.POST)
+        print(request.POST)
+        print(form.errors)
+        # form = BlogPostForm(request.POST, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            # title = form.cleaned_data["title"]
-            # content = form.cleaned_data["content"]
-            # image = form.cleaned_data["image"]
-            # is_draft = bool(request.POST.get("draft"))  # '글 임시저장' 버튼 확인
-            # if is_draft:
-            #     # 글을 임시 저장합니다.
-            #     BlogPost.objects.create(title=title, content=content, image=image, is_draft=True)
-            # else:
-            #     # 글을 업로드합니다.
-            #     BlogPost.objects.create(title=title, content=content, image=image, is_draft=False)
+            print("폼")
+            post = form.save()
+            # post = form.save(commit=False)
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            # created_at = request.POST["created_at"]
+            topic = request.POST["topic"]
+            image = form.cleaned_data["image"]
+            is_draft = bool(request.POST.get("draft"))  # '글 임시저장' 버튼 확인
+            if is_draft:
+                # 글을 임시 저장합니다.
+                BlogPost.objects.create(
+                    title=title, content=content, image=image, topic=topic, is_draft=True
+                )
+                print("임시저장? 성공")
+
+            else:
+                # 글을 업로드합니다.
+                BlogPost.objects.create(
+                    title=title, content=content, image=image, topic=topic, is_draft=False
+                )
+                print("업로드성공")
+
+            if "delete" in request.POST:
+                post.delete()
+                return redirect("blog_app/board.html")
+
+            if not form.cleaned_data.get("topic"):
+                post.topic = "전체"
+
+            # 임시저장 여부 설정
+            if "draft" in request.POST:
+                post.publish = "N"
+            else:
+                post.publish = "Y"
 
             # 글쓴이 설정
             post.author_id = request.user.username
 
             post.save()
-            return redirect("post_detail", post_id=post.id)  # 업로드/수정 페이지로 이동
+            return redirect(request, "board")  # 업로드/수정 페이지로 이동
     else:
         form = BlogPostForm()
-    return render(request, "blog_app/write.html", {"form": form})
+        print(form.errors)
+
+    template = "blog_app/write.html"
+    # context = {
+    #     "form": form,
+    #     "post": post,
+    #     "edit_mode": post_id is not None,
+    #     "MEDIA_URL": settings.MEDIA_URL,
+    # }  # edit_mode: 글 수정 모드여부
+
+    return render(request, template)
 
 
 # 이미지 업로드
@@ -81,6 +121,30 @@ class image_upload(View):
 
 ########## LOGIN ##########
 
+
+def userLogin(request):
+    # 이미 로그인한 경우
+    if request.user.is_authenticated:
+        return redirect("board_admin")
+
+    else:
+        form = loginForm(data=request.POST or None)
+        if request.method == "POST":
+            # 입력정보가 유효한 경우 각 필드 정보 가져옴
+            if form.is_valid():
+                username = form.cleaned_data["username"]
+                password = form.cleaned_data["password"]
+
+                # 위 정보로 사용자 인증(authenticate사용하여 superuser로 로그인 가능)
+                user = authenticate(request, username=username, password=password)
+
+                # 로그인이 성공한 경우
+                if user is not None:
+                    login(request, user)
+                    return redirect("board_admin")
+        return render(request, "registration/login.html", {"form": form})
+
+
 # def signup(request):
 #     # 회원가입 버튼을 눌렀을때,
 #     if request.method == "POST":
@@ -103,6 +167,10 @@ def board_client(request):
 
 def board_admin(request):
     return render(request, "blog_app/board_admin.html")
+
+
+def write_page(request):
+    return render(request, "blog_app/write.html")
 
 
 def post_detail(request, post_id):

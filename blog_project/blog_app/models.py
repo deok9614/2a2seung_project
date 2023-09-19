@@ -11,12 +11,7 @@ class BlogPost(models.Model):
     topic = models.CharField(max_length=255, default="전체")
     publish = models.CharField(max_length=1, default="Y")
     views = models.IntegerField(default=0)
-    author_id = models.CharField(max_length=100, null=True, blank=True)
-    # subtitle = models.CharField(max_length=200, default="", blank=True)
-    # article_slug = models.SlugField("slug", null=True, blank=False, unique=True)
-    # image = models.ImageField(upload_to="post_images/", blank=True, null=True)
-    # is_draft = models.BooleanField(default=False)
-    # published = models.DateTimeField("Date published", default=timezone.now)
+    author_id = models.CharField(default="admin")
     modified = models.DateTimeField("Date modified", default=timezone.now)
 
     def __str__(self):
