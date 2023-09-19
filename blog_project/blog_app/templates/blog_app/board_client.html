@@ -1,12 +1,13 @@
-{% load static %}
+{% load custom_filter%} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="../../static/img/강아지.jpg">
     <link rel="stylesheet" type="text/css" href="{% static 'css/post_list.css' %}">
-    <title>Main_Client</title>
+    <title>블로그 홈</title>
 </head>
 
 <body>
@@ -22,104 +23,64 @@
                 <a href=""><button class="category">여행</button></a>
                 <a href=""><button class="category">영화</button></a>
                 <a href=""><button class="category">IT</button></a>
+                <a href="{% url 'logout' %}"><button class="logout_btn">Logout</button></a>
             </div>
             <div>
-                <a href="{% url 'login' %}"><button class="login_btn">Login</button></a>
+                <a href="{% url 'write' %}"><button class="write_btn">Just Write!</button></a>
             </div>
         </div>
     </header>
 
-    <section>
-        <article>
-            <div class="header_section">
-                <div class="main_text">
-                    <div class="main_title">
-                        Lorem ipsum dolor
-                    </div>
-                    <div class="main_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                        aliquam
-                        pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer.
-                        Ridiculus
-                        id
-                        purus feugiat et mi justo scelerisque euismod euismod. Turpis dictumst luctus nisi placerat
-                        purus
-                        dolor
-                        luctus vitae pretium. Gravida faucibus scelerisque quis mi consequat malesuada.
-                    </div>
+        <div id="post-list" class="post-list">
+          {% for post in posts %} {% if forloop.first %}
+          <div class="first-post-box">
+            <div class="container">
+              <a
+                href="{% url 'post_detail' post.id %}"
+                class="post-info-box-link"
+              >
+                <div class="post-info-box">
+                  <h3>{{ post.title }}</h3>
+                  <p>{{ post.content|text_only }}</p>
+                  <button>READ MORE</button>
                 </div>
-                <button class="btn_readmore">READ MORE</button>
-                <img src="\media\board_image.svg" class="board-image">
+              </a>
+              <div class="thumbnail-img">
+                <img src="{{ post.content|get_img_src }}" alt="" />
+              </div>
             </div>
-        </article>
-
-        <div class="posting_section">
-            <div class="posting">
-                <img src="\media\Rectangle_13.svg">
-                <p class="posting_date">2023-09-07 12:13:01</p>
-                <p class="posting_title">Lorem ipsum dolor</p>
-                <p class="posting_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                    aliquam
-                    pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus
-                    id
-                    purus feugiat et mi justo</p>
+          </div>
+          {% endif %} {% endfor %}
+    
+          <div class="post-box">
+            <div class="container">
+              {% for post in posts %} {% if not forloop.first %}
+              <div class="card">
+                <div class="card-thumbnail-img">
+                  {% if post.content|get_img_src %}
+                  <img src="{{ post.content|get_img_src }}" alt="Thumbnail image" />
+                  {% else %}
+                  <div
+                    style="width: 100%; height: 100%; background-color: transparent"
+                  ></div>
+                  {% endif %}
+                </div>
+                <a
+                  href="{% url 'post_detail' post.id %}"
+                  class="post-info-box-link"
+                >
+                  <div class="card-info-box">
+                    <p>{{ post.created_at }}</p>
+    
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content|text_only }}</p>
+                  </div>
+                </a>
+              </div>
+              {% endif %} {% endfor %}
             </div>
-
-            <div class="posting">
-                <img src="\media\Rectangle_14.svg">
-                <p class="posting_date">2023-09-07 12:13:01</p>
-                <p class="posting_title">Lorem ipsum dolor</p>
-                <p class="posting_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                    aliquam
-                    pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus
-                    id
-                    purus feugiat et mi justo</p>
-            </div>
-
-            <div class="posting">
-                <img src="\media\Rectangle_15.svg">
-                <p class="posting_date">2023-09-07 12:13:01</p>
-                <p class="posting_title">Lorem ipsum dolor</p>
-                <p class="posting_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                    aliquam
-                    pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus
-                    id
-                    purus feugiat et mi justo</p>
-            </div>
-
-            <div class="posting">
-                <img src="\media\Rectangle_13.svg">
-                <p class="posting_date">2023-09-07 12:13:01</p>
-                <p class="posting_title">Lorem ipsum dolor</p>
-                <p class="posting_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                    aliquam
-                    pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus
-                    id
-                    purus feugiat et mi justo</p>
-            </div>
-
-            <div class="posting">
-                <img src="\media\Rectangle_14.svg">
-                <p class="posting_date">2023-09-07 12:13:01</p>
-                <p class="posting_title">Lorem ipsum dolor</p>
-                <p class="posting_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                    aliquam
-                    pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus
-                    id
-                    purus feugiat et mi justo</p>
-            </div>
-
-            <div class="posting">
-                <img src="\media\Rectangle_15.svg">
-                <p class="posting_date">2023-09-07 12:13:01</p>
-                <p class="posting_title">Lorem ipsum dolor</p>
-                <p class="posting_content">Lorem ipsum dolor sit amet consectetur. Non pretium arcu praesent cursus
-                    aliquam
-                    pellentesque. Euismod consectetur fames vitae nunc gravida morbi felis porttitor integer. Ridiculus
-                    id
-                    purus feugiat et mi justo</p>
-            </div>
+          </div>
         </div>
-    </section>
 
     <!-- FOOTER -->
     <footer>

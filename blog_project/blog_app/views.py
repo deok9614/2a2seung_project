@@ -165,8 +165,14 @@ def userLogin(request):
 #     return render(request, "registration/signup.html", {"form": form})
 
 
-def board_client(request):
-    return render(request, "blog_app/board_client.html")
+def board_client(request, topic=None):
+    if topic:
+        posts = BlogPost.objects.filter(topic=topic, publish="Y").order_by("-views")
+
+    else:
+        posts = BlogPost.objects.filter(publish="Y").order_by("-views")
+
+    return render(request, "blog_app/board_client.html", {"posts": posts})
 
 
 def board_admin(request, topic=None):
