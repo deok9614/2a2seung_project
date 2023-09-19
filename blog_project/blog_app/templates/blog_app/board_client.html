@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/post_list.css' %}">
-    <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"> -->
     <title>Document</title>
 </head>
 
@@ -14,7 +13,8 @@
     <!-- HEADER -->
     <header>
         <div class="logo">
-            <a href="{% url "board_client" %}"><img src="\media\board_client_log.svg" id="mylog" href="{% url "board_client" %}"></img></a>
+            <a href="{% url 'board_client' %}"><img src="\media\board_client_log.svg" id="mylog"
+                    href="{% url 'board_client' %}"></img></a>
         </div>
         <div class="nav_btn">
             <div class="category_box">
@@ -25,9 +25,7 @@
                 <a href=""><button class="category">IT</button></a>
             </div>
             <div>
-
-                <a href="{% url "login" %}"><button class="login_btn">Login</button></a>
-
+                <a href="{% url 'login' %}"><button class="login_btn">Login</button></a>
             </div>
         </div>
     </header>
@@ -51,7 +49,7 @@
                     </div>
                 </div>
                 <button class="btn_readmore">READ MORE</button>
-                <img src="\media\board_image.svg">
+                <img class="board-image" src="\media\board_image.svg">
             </div>
         </article>
 
