@@ -18,7 +18,10 @@ import openai
 def board(request):
     articles = BlogPost.objects.all().order_by("-modified")
     username = request.user
-    return render(request, "blog_app/board.html", {"username": username, "articles": articles})
+    post = articles.first()
+    return render(
+        request, "blog_app/board.html", {"username": username, "articles": articles, "post": post}
+    )
 
 
 ##########  WRITE ##########
@@ -168,11 +171,10 @@ def board_admin(request, topic=None):
     # 특정 주제로 필터링
     if topic:
         posts = BlogPost.objects.filter(topic=topic, publish="Y").order_by("-views")
-        print(posts)
 
     else:
         posts = BlogPost.objects.filter(publish="Y").order_by("-views")
-        print(posts)
+
     return render(request, "blog_app/board_admin.html", {"posts": posts})
 
 
