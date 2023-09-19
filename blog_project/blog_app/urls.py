@@ -14,7 +14,7 @@ urlpatterns = [
     path("write", views.write, name="write"),
     path("editPost/<int:post_id>", views.write, name="editPost"),
     path("image_upload", image_upload.as_view(), name="image_upload"),
-    path("post/<int:post_id>", views.post_detail, name="post_detail"),
+    path("board/<int:post_id>", views.board_page, name="post_detail"),
     # path("", include("tinymce.urls")),
     # path("board", views.login_success, name="board"),
     path("board_admin", views.board_admin, name="board_admin"),

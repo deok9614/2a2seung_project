@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.core.files.storage import default_storage
 import openai
+import re
 
 
 # Create your views here.
@@ -39,7 +40,6 @@ def write(request, post_id=None):
     # 업로드/수정 버튼 눌렀을 때
     if request.method == "POST":
         form = BlogPostForm(request.POST)
-        print(form.errors)
         # form = BlogPostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save()
@@ -57,7 +57,7 @@ def write(request, post_id=None):
             # 글쓴이 설정
             post.author_id = request.user.username
             post.save()
-            return redirect("board")
+            return redirect("post_detail", post_id=post.id)
     else:
         form = BlogPostForm(instance=post)
 
@@ -68,7 +68,6 @@ def write(request, post_id=None):
         "MEDIA_URL": settings.MEDIA_URL,
     }  # edit_mode: 글 수정 모드여부
 
-    print("??????")
     return render(request, "blog_app/write.html", context)
 
 
@@ -172,7 +171,47 @@ def board_admin(request):
 #     return render(request, "blog_app/write.html")
 
 
-def post_detail(request, post_id):
+def board_page(request, post_id):
     # 포스트 id로 게시물 가져옴
     post = get_object_or_404(BlogPost, id=post_id)
-    return render(request, "blog_app/board.html", {"post": post})
+
+    if request.method == "POST":
+        # 요청에 삭제가 포함된경우
+        if "delete-button" in request.POST:
+            post.delete()
+            return redirect("board_admin")
+
+    # 조회수 증가 및 db에 저장
+    post.views += 1
+    post.save()
+
+    # 이전/다음 게시물 가져옴
+    previous_post = BlogPost.objects.filter(id__lt=post.id, publish="Y").order_by("-id").first()
+    next_post = BlogPost.objects.filter(id__gt=post.id, publish="Y").order_by("id").first()
+
+    # 같은 주제인 게시물들 중 최신 글 가져옴
+    recommended_posts = (
+        BlogPost.objects.filter(topic=post.topic, publish="Y")
+        .exclude(id=post.id)
+        .order_by("-created_at")[:2]
+    )
+
+    # 추천된 게시물을 반복하면서 각 게시물의 내용에서 첫 번째 이미지 태그를 추출
+    for recommended_post in recommended_posts:
+        content = recommended_post.content
+        # 정규 표현식을 사용
+        img_tag_match = re.search(r'<img\s+.*?src="([^"]+)"', content)
+        if img_tag_match:
+            recommended_post.image_tag = img_tag_match.group(0)
+        else:
+            recommended_post.image_tag = ""
+
+    context = {
+        "post": post,
+        "previous_post": previous_post,
+        "next_post": next_post,
+        "recommended_posts": recommended_posts,
+        "MEDIA_URL": "/" + settings.MEDIA_URL,
+    }
+
+    return render(request, "blog_app/board.html", context)
