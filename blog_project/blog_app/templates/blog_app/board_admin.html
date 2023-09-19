@@ -13,7 +13,7 @@
     <!-- HEADER -->
     <header>
         <div class="logo">
-            <a href="{% url "board_admin" %}"><img src="\media\board_client_log.svg" id="mylog"></img></a>
+            <a href="{% url 'board_admin' %}"><img src="\media\board_client_log.svg" id="mylog"></img></a>
         </div>
         <div class="nav_btn">
             <div class="category_box">
@@ -22,10 +22,10 @@
                 <a href=""><button class="category">여행</button></a>
                 <a href=""><button class="category">영화</button></a>
                 <a href=""><button class="category">IT</button></a>
-                <a href="{% url "logout" %}"><button class="logout_btn">Logout</button></a>
+                <a href="{% url 'logout' %}"><button class="logout_btn">Logout</button></a>
             </div>
             <div>
-                <a href="{% url "write" %}"><button class="write_btn">Just Write!</button></a>
+                <a href="{% url 'write' %}"><button class="write_btn">Just Write!</button></a>
             </div>
         </div>
     </header>
@@ -33,9 +33,9 @@
     <section>
         <div id="post-list" class="post-list">
             {% for post in posts %} {% if forloop.first %}
-            <div class="header_section">  <!-- 강사님: first-post-box-->
-                <div class="main_text">  <!-- 강사님: container-->
-                    <a href="{% url 'post' post.id %}">
+            <div class="header_section"> <!-- 강사님: first-post-box-->
+                <div class="main_text"> <!-- 강사님: container-->
+                    <a href="{% url 'post_detail' post.id %}">
                         <div>
                             <div class="main_title">{{ post.id }}</div>
                             <div class="main_title">{{ post.title }}</div>

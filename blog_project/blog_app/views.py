@@ -15,6 +15,9 @@ import openai
 import re
 
 
+from bs4 import BeautifulSoup
+
+
 # Create your views here.
 def board(request):
     articles = BlogPost.objects.all().order_by("-modified")
@@ -189,7 +192,7 @@ def board_page(request, post_id):
         # 요청에 삭제가 포함된경우
         if "delete-button" in request.POST:
             post.delete()
-            return redirect("board_admin")
+            return redirect("blog_app:post_list")
 
     # 조회수 증가 및 db에 저장
     post.views += 1
@@ -205,23 +208,18 @@ def board_page(request, post_id):
         .exclude(id=post.id)
         .order_by("-created_at")[:2]
     )
-
-    # 추천된 게시물을 반복하면서 각 게시물의 내용에서 첫 번째 이미지 태그를 추출
+    # 게시물 내용에서 첫번째 이미지(썸네일) 태그 추출
     for recommended_post in recommended_posts:
-        content = recommended_post.content
-        # 정규 표현식을 사용
-        img_tag_match = re.search(r'<img\s+.*?src="([^"]+)"', content)
-        if img_tag_match:
-            recommended_post.image_tag = img_tag_match.group(0)
-        else:
-            recommended_post.image_tag = ""
+        soup = BeautifulSoup(recommended_post.content, "html.parser")
+        image_tag = soup.find("img")
+        recommended_post.image_tag = str(image_tag) if image_tag else ""
 
     context = {
         "post": post,
         "previous_post": previous_post,
         "next_post": next_post,
         "recommended_posts": recommended_posts,
-        "MEDIA_URL": "/" + settings.MEDIA_URL,
+        "MEDIA_URL": settings.MEDIA_URL,
     }
 
     return render(request, "blog_app/board.html", context)
