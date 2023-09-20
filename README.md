@@ -7,9 +7,9 @@ AI autocomplete personal blog project
 PostgreSQL 15 => DB
 Pgadmin4 7.5
 Visual Studio Code 1.82.2
-Django 23.2.1
-  
+Django 23.2.1  
 </pre>
+
 # PostgreSQL DB 구성 🌟
 ### pgadmin4_DB
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/d241d7c4-5049-404f-9bf6-b5f386e9abb5)
@@ -35,6 +35,7 @@ ALTER TABLE IF EXISTS public.blog_app_blogpost
 ```
 
 
+
 # 프로젝트 화면 구성 🌟
 ### board_client page
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/1ff0b902-0dda-4813-87e2-5d47d46cafb7)
@@ -57,21 +58,26 @@ ALTER TABLE IF EXISTS public.blog_app_blogpost
 
 
 
+
 # 구현기능 🌟🌟
 ### api_key를 이용한 AI 글 자동 완성 기능 기능
 ![aip를 이용한 소셜 로그인 기능](https://github.com/deok9614/2a2seung_project/assets/90494150/6049b575-a3fd-4817-97db-e421d5fbd66e)
 
 
+
 ### nave, google aip를 이용한 소셜 로그인 기능
-#![image](https://github.com/deok9614/2a2seung_project/assets/90494150/abd05b9e-af2e-459a-97b8-5fd59a23fa6f)
+![소셜로그인기능](https://github.com/deok9614/2a2seung_project/assets/90494150/191515df-2774-4998-a92b-cab2b65994e7)
+
 
 
 ### 텍스트 에디터 (tinyMCE)를 이용한 편리한 글 작성과 이미지 업로드 기능
 ![텍스트 에디터 (tinyMCE)를 이용한 편리한 글 작성과 이미지 업로드 기능](https://github.com/deok9614/2a2seung_project/assets/90494150/ecc36c88-468c-40fd-bae4-f8f69ffceef2)
 
 
+
 ### 게시물 주제와 관려된 추천 게시물 제공 기능
 ![주제와 관련된 추천 게시물 제공](https://github.com/deok9614/2a2seung_project/assets/90494150/7348aa3c-7c83-4be2-b3ea-b45b401d87e3)
+
 
 
 ### 조회 수가 많은 순서대로 게시물을 출력하는 기능
