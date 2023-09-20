@@ -35,18 +35,22 @@ ALTER TABLE IF EXISTS public.blog_app_blogpost
 ```
 
 # 프로젝트 화면 구성
-### board_client
+### board_client page
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/1ff0b902-0dda-4813-87e2-5d47d46cafb7)
 
-### login page
+
+### login page page
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/29c9e90f-132f-45d0-bf1a-403051ad6995)
 
-### board_admin
+
+### board_admin page
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/59f7288e-cf19-4775-a5ae-3d95fe81e33e)
 
-### board 
+
+### board page
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/1023604c-59c6-4fdc-8fdd-573587fbc562)
 
-### write
+
+### write page
 ![image](https://github.com/deok9614/2a2seung_project/assets/90494150/2e114c68-e3bc-4285-a67e-2c678fe74931)
 
