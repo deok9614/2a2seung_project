@@ -67,6 +67,7 @@ ALTER TABLE IF EXISTS public.blog_app_blogpost
 
 ### nave, google aip를 이용한 소셜 로그인 기능
 ![소셜로그인기능](https://github.com/deok9614/2a2seung_project/assets/90494150/191515df-2774-4998-a92b-cab2b65994e7)
+![소셜로그인기능](https://github.com/deok9614/2a2seung_project/assets/90494150/6736daa1-347c-40eb-bf11-f8aaeb2129c4)
 
 
 
